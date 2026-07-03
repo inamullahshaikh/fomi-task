@@ -1,10 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import {
-  CONTENT_TYPES,
-  DEFAULT_PROMPT,
-} from "@/lib/constants";
+import { CONTENT_TYPES } from "@/lib/constants";
 import { useContent } from "@/hooks/useContent";
 import { useGenerate } from "@/hooks/useGenerate";
 import GenerationSidebar from "@/components/generation/GenerationSidebar";
@@ -13,7 +10,7 @@ import ResultsGrid from "@/components/generation/ResultsGrid";
 
 export default function GenerationWorkspace() {
   const [contentType, setContentType] = useState(CONTENT_TYPES.IMAGE);
-  const [prompt, setPrompt] = useState(DEFAULT_PROMPT);
+  const [prompt, setPrompt] = useState("");
   const [imageCount, setImageCount] = useState(8);
   const [aspectRatio, setAspectRatio] = useState("1:1");
   const [model, setModel] = useState("fomi-v1");
@@ -21,7 +18,6 @@ export default function GenerationWorkspace() {
   const {
     items,
     prompt: displayedPrompt,
-    model: displayedModel,
     loading: contentLoading,
     error: contentError,
     reload,
@@ -68,12 +64,11 @@ export default function GenerationWorkspace() {
 
   const isLoading = contentLoading || generating;
   const activeError = generateError || contentError;
-  const showPrompt = displayedPrompt || prompt;
-  const showModel = displayedModel || model;
+  const showPrompt = displayedPrompt;
 
   return (
-    <section aria-label="Generation workspace" className="animate-fade-in">
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(18rem,22rem)_1fr] lg:gap-7 xl:gap-8 2xl:gap-10">
+    <section aria-label="Generation workspace">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(16rem,19rem)_1fr] lg:items-start lg:gap-6">
         <GenerationSidebar
           contentType={contentType}
           onContentTypeChange={handleContentTypeChange}
@@ -91,9 +86,9 @@ export default function GenerationWorkspace() {
         />
 
         <div className="min-w-0">
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-stretch lg:gap-5 xl:gap-6">
+          <div className="flex min-w-0 items-stretch gap-3 lg:gap-4">
             {showPrompt && !contentLoading && items.length > 0 && (
-              <PromptCard prompt={showPrompt} model={showModel} />
+              <PromptCard prompt={showPrompt} />
             )}
 
             <div className="min-w-0 flex-1">

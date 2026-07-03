@@ -37,7 +37,7 @@ function GenerationSidebar({
 }) {
   const imageCountOptions = IMAGE_COUNTS.map((count) => ({
     value: String(count),
-    label: `${count} Image${count > 1 ? "s" : ""}`,
+    label: count === 8 ? "# Images" : `${count} Image${count > 1 ? "s" : ""}`,
   }));
 
   const aspectOptions = ASPECT_RATIOS.map((ratio) => ({
@@ -54,8 +54,8 @@ function GenerationSidebar({
     <aside
       aria-label="Generation controls"
       className={cn(
-        "surface-panel animate-slide-up p-4 sm:p-5",
-        "lg:sticky lg:top-[7.5rem] lg:self-start"
+        "rounded-[var(--radius-2xl)] border border-[var(--border)] bg-[var(--bg-panel)] p-4 sm:p-5",
+        "shadow-[var(--shadow-sm)]"
       )}
     >
       <Toggle
@@ -68,20 +68,21 @@ function GenerationSidebar({
         ]}
       />
 
-      <div className="mt-5">
+      <div className="mt-4">
         <TextArea
           id="generation-prompt"
           value={prompt}
           onChange={(event) => onPromptChange(event.target.value)}
           placeholder={PROMPT_PLACEHOLDER}
-          rows={6}
+          rows={5}
           error={error && !prompt.trim() ? error : undefined}
           aria-label="Generation prompt"
+          className="min-h-[7.5rem] bg-[var(--bg-surface)]"
         />
       </div>
 
       <Button
-        className="mt-5 w-full"
+        className="mt-4 w-full"
         size="lg"
         onClick={onGenerate}
         isLoading={isGenerating}
@@ -92,12 +93,12 @@ function GenerationSidebar({
       </Button>
 
       {error && prompt.trim() && (
-        <p className="mt-2.5 text-xs font-medium text-red-500" role="alert">
+        <p className="mt-2 text-xs font-medium text-red-500" role="alert">
           {error}
         </p>
       )}
 
-      <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3">
+      <div className="mt-4 flex flex-wrap gap-2">
         {contentType === CONTENT_TYPES.IMAGE && (
           <Dropdown
             label="Number of images"
@@ -105,6 +106,7 @@ function GenerationSidebar({
             onChange={(value) => onImageCountChange(Number(value))}
             options={imageCountOptions}
             icon={HashIcon}
+            className="min-w-[6.5rem] flex-none"
           />
         )}
         <Dropdown
@@ -113,18 +115,20 @@ function GenerationSidebar({
           onChange={onAspectRatioChange}
           options={aspectOptions}
           icon={AspectRatioIcon}
+          className="min-w-[4.5rem] flex-none"
         />
         <Dropdown
           label="Model"
           value={model}
           onChange={onModelChange}
           options={modelOptions}
+          className="min-w-[7.5rem] flex-1"
         />
       </div>
 
-      <div className="mt-5 space-y-2">
+      <div className="mt-4 space-y-2">
         <Accordion title="Advance">
-          <p className="mb-2.5">
+          <p className="mb-2">
             Fine-tune seed, guidance scale, and negative prompts for more control over output.
           </p>
           <ul className="list-disc space-y-1 pl-4 text-xs leading-relaxed">

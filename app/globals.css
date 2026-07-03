@@ -4,8 +4,8 @@
 [data-theme="light"] {
   --bg-page: #fdf8f6;
   --bg-surface: #ffffff;
-  --bg-panel: #f8ebe6;
-  --bg-prompt: #f3ddd4;
+  --bg-panel: #f5e8e3;
+  --bg-prompt: #f0d8cf;
   --bg-muted: #f5efec;
   --bg-hover: #f0e4df;
   --bg-elevated: #ffffff;
@@ -51,6 +51,14 @@
 
   --space-section: 1.75rem;
   --space-block: 1.25rem;
+
+  --history-bg: #ffffff;
+  --history-border: rgba(31, 31, 31, 0.06);
+  --history-shadow: 0 2px 14px rgba(31, 31, 31, 0.06);
+  --history-divider: #e8ddd8;
+  --history-thumb-bg: #f5efec;
+
+  --navbar-height: 8.25rem;
 }
 
 [data-theme="dark"] {
@@ -87,6 +95,12 @@
 
   --progress-track: #2a2624;
   --progress-fill: linear-gradient(90deg, #e3a18f 0%, #efb5a5 100%);
+
+  --history-bg: #1c1917;
+  --history-border: rgba(255, 255, 255, 0.06);
+  --history-shadow: 0 2px 14px rgba(0, 0, 0, 0.25);
+  --history-divider: #3a332f;
+  --history-thumb-bg: #262220;
 }
 
 @theme inline {

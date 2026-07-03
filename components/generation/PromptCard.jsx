@@ -1,27 +1,25 @@
 "use client";
 
 import { memo } from "react";
-import { MODELS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-function PromptCard({ prompt, model }) {
-  const modelLabel = MODELS.find((item) => item.value === model)?.label || "Model";
-
+function PromptCard({ prompt }) {
   return (
     <aside
       aria-label="Current prompt"
       className={cn(
-        "flex min-h-[12rem] animate-fade-in flex-col rounded-[var(--radius-xl)] p-4 sm:min-h-[16rem] sm:p-5",
-        "border border-[var(--border-subtle)] bg-[var(--bg-prompt)]",
-        "shadow-[var(--shadow-card)]",
-        "lg:max-w-[11rem] xl:max-w-[12.5rem]"
+        "hidden shrink-0 flex-col rounded-[var(--radius-xl)] p-4 lg:flex lg:w-[10.5rem] xl:w-[11.5rem]",
+        "border border-[var(--border)] bg-[var(--bg-prompt)]",
+        "shadow-[var(--shadow-sm)]"
       )}
     >
-      <p className="flex-1 text-xs leading-[1.65] tracking-tight text-[var(--text-primary)] sm:text-[0.8125rem]">
+      <p className="flex-1 text-[0.6875rem] leading-[1.7] text-[var(--text-primary)] xl:text-xs">
         {prompt}
       </p>
-      <div className="mt-5 flex justify-end">
-        <span className="badge">{modelLabel}</span>
+      <div className="mt-4 flex justify-end">
+        <span className="rounded-[var(--radius-md)] bg-[var(--bg-surface)] px-2.5 py-1 text-[0.625rem] font-medium text-[var(--text-secondary)] shadow-[var(--shadow-xs)]">
+          Model
+        </span>
       </div>
     </aside>
   );

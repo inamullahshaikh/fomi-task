@@ -1,52 +1,123 @@
-.scrollContainer {
-  position: relative;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-bottom: 0.375rem;
-  margin-inline: -0.25rem;
-  padding-inline: 0.25rem;
+/* History strip — matches assessment mockup (page 2) */
+
+.historySection {
+  position: sticky;
+  top: var(--navbar-height, 8.25rem);
+  z-index: 30;
+  width: 100%;
+  padding-bottom: 0.625rem;
+  background: var(--bg-page);
 }
 
-.scrollContainer::before,
-.scrollContainer::after {
-  content: "";
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  display: block;
-  width: 1.5rem;
-  height: 100%;
-  pointer-events: none;
+.historyCard {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid var(--history-border);
+  background: var(--history-bg);
+  box-shadow: var(--history-shadow);
+  padding: 0.8125rem 0 0.8125rem 1.25rem;
+}
+
+.historyLabel {
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.125rem;
+  padding-right: 1rem;
+}
+
+.historyTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.viewAll {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-align: left;
+  transition: color 200ms ease;
+}
+
+.viewAll:hover {
+  color: var(--accent);
+}
+
+.divider {
+  flex-shrink: 0;
+  align-self: center;
+  width: 1px;
+  height: 3.25rem;
+  margin-right: 0.875rem;
+  background: var(--history-divider);
+}
+
+.scrollViewport {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.scrollContainer {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+}
+
+.scrollContainer:active {
+  cursor: grabbing;
+}
+
+.scrollContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.thumbnailRow {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: max-content;
+  padding-right: 0.25rem;
 }
 
 .thumbnail {
-  width: 4.5rem;
-  height: 4.5rem;
+  flex-shrink: 0;
+  width: 4.75rem;
+  height: 4.75rem;
+  list-style: none;
 }
 
 .thumbnailButton {
-  position: relative;
   display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  border-radius: 0.75rem;
   overflow: hidden;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-subtle);
-  background: var(--bg-surface);
-  box-shadow: var(--shadow-xs);
-  transition:
-    transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--history-thumb-bg);
+  cursor: pointer;
+  transition: opacity 200ms ease;
 }
 
 .thumbnailButton:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent-muted);
-  box-shadow: var(--shadow-md);
-}
-
-.thumbnailButton:active {
-  transform: translateY(0);
+  opacity: 0.92;
 }
 
 .thumbnailButton:focus-visible {
@@ -54,9 +125,74 @@
   outline-offset: 2px;
 }
 
+.thumbnailImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Right-edge fade: last thumbnail softens into the strip background */
+.fadeEdge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 5.5rem;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 300ms ease;
+  background: linear-gradient(
+    90deg,
+    rgb(255 255 255 / 0) 0%,
+    var(--history-bg) 72%
+  );
+}
+
+[data-theme="dark"] .fadeEdge {
+  background: linear-gradient(
+    90deg,
+    rgb(28 25 23 / 0) 0%,
+    var(--history-bg) 72%
+  );
+}
+
+.fadeEdgeHidden {
+  opacity: 0;
+}
+
 @media (min-width: 640px) {
+  .historyCard {
+    padding: 0.875rem 0 0.875rem 1.375rem;
+  }
+
+  .divider {
+    height: 3.5rem;
+    margin-right: 1rem;
+  }
+
   .thumbnail {
     width: 5rem;
     height: 5rem;
+  }
+
+  .thumbnailRow {
+    gap: 0.6875rem;
+  }
+
+  .fadeEdge {
+    width: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .thumbnail {
+    width: 5.125rem;
+    height: 5.125rem;
+  }
+
+  .thumbnailRow {
+    gap: 0.75rem;
   }
 }

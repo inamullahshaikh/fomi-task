@@ -2,9 +2,9 @@ import Navbar from "@/components/layout/Navbar";
 
 export default function MainLayout({ children }) {
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--bg-page)]">
-      <Navbar activeNav="home" />
-      <main className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-4 py-6 sm:px-6 sm:py-7 lg:px-8 lg:py-8">
+    <div className="min-h-screen bg-[var(--bg-page)]">
+      <Navbar />
+      <main className="mx-auto w-full max-w-[1600px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
         {children}
       </main>
     </div>
