@@ -99,7 +99,24 @@ npm run build
 npm start
 ```
 
-## Mock API
+## Deploy to Vercel
+
+The Next.js app lives in this repository root (`fomi-app`). Use these settings in **Vercel → Project → Settings → General**:
+
+| Setting | Value |
+|---------|-------|
+| **Framework Preset** | Next.js |
+| **Root Directory** | `.` (repo root) — or `fomi-app` if the GitHub repo contains the parent `frontendtask` folder |
+| **Build Command** | `npm run build` (default) |
+| **Output Directory** | *(leave empty — do not set to `public`)* |
+| **Install Command** | `npm install` (default) |
+
+The error `routes-manifest.json couldn't be found` in `/public/` almost always means **Output Directory** is incorrectly set to `public`. Clear that field and redeploy.
+
+If your GitHub repo includes the parent folder (e.g. `frontendtask/fomi-app/`), set **Root Directory** to `fomi-app`.
+
+After pushing, trigger a new deployment from the Vercel dashboard.
+
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
